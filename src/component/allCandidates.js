@@ -10,6 +10,7 @@ import { db } from "../firebase";
 import { db as db2 } from "../firebase/firebase";
 import { ref as dbRef, onValue } from "firebase/database";
 import { CustomButton } from "../component/CustomButton";
+import withAuthorization from "../authentication/withAuthorization";
 
 const useStyles = makeStyles((theme) => ({
   formSection: {
@@ -158,4 +159,8 @@ const Candidates = () => {
   );
 };
 
-export default Candidates;
+
+const authCondition = (authUser) => authUser;
+
+export default withAuthorization(authCondition)(Candidates);
+
