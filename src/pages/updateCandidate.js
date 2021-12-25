@@ -203,12 +203,19 @@ const UpdateCandidate = (props) => {
   const [status,setStatus] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [candidates,setCandidates]=useState({});
 
   useEffect(() => {
     setName(candidateInfo.name);
     setAddress(candidateInfo.emailAddress)
     setDateOfBirth(candidateInfo.dateOfBirth);
     setStatus(candidateStatus);
+    const candidateseRef=dbRef(db2,`newCandidates`);
+    onValue(candidateseRef,(snapshot)=>{
+      if(snapshot.val()){
+        setCandidates(snapshot.val());
+      }
+    })
   }, []);
 
   useEffect(() => {
@@ -221,9 +228,30 @@ const UpdateCandidate = (props) => {
     return timer;
   }, [errorMessage]);
 
-  const handleNewCandidate = () => {
+  const existingCandidate= (email) => {
+    for (let [key, value] of Object.entries(candidates)) {
+      if(value.emailAddress == email && key!=candidateId)return true;
+    }
+    return false;
+  }
+
+  const validateEmail = (email) => {
+    return email.match(
+      /^\S+@\S+\.\S+$/
+    );
+  };
+
+  const handleUpdateCandidate = () => {
     if(!name || !address || !dateOfBirth || !status){
       setErrorMessage("All Fields are compulsory");
+      return;
+    }
+    if(!validateEmail(address)){
+      setErrorMessage("Email address is not valid");
+      return;
+    }
+    if(existingCandidate(address)){
+      setErrorMessage("Email address is already in use for another candidate");
       return;
     }
     db.doUpdateCandidate(candidateId,{name,address,dateOfBirth,status,pincode:candidateInfo.pincode,age:candidateInfo.age,state:candidateInfo.state});
@@ -330,7 +358,7 @@ const UpdateCandidate = (props) => {
                     disableElevation
                     variant="contained"
                     fullWidth
-                    onClick={handleNewCandidate}
+                    onClick={handleUpdateCandidate}
                     
                   >
                     Update

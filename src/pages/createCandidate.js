@@ -237,9 +237,19 @@ const CreateCandidate = () => {
     return pincode.match(/^[1-9][0-9]{5}$/);
   }
 
+  const validateEmail = (email) => {
+    return email.match(
+      /^\S+@\S+\.\S+$/
+    );
+  };
+
   const handleNewCandidate = () => {
     if(!name || !address || !dateOfBirth || !state || !age || !pincode){
       setErrorMessage("All Fields are compulsory");
+      return;
+    }
+    if(!validateEmail(address)){
+      setErrorMessage("Email address is not valid");
       return;
     }
     if(existingCandidate(address)){

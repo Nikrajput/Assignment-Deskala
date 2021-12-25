@@ -123,7 +123,7 @@ const Candidates = () => {
                   </Col>
                   <Col md={1}>
                     <Link
-                      to={{pathname:"/updateCandidate",candidateInfo:candidates[key],candidateId:key,candidateStatus:status[idx]?status[idx]:'Selected'}}
+                      to={{pathname:"/updateCandidate",candidateInfo:candidates[key],candidateId:key,candidateStatus:status[idx]?status[idx]:(candidates[key].status ? candidates[key].status : "Selected")}}
                       style={{backgroundColor:"white",color:"#1a8cff"}}
                     >
                       <FontAwesomeIcon icon={faPenAlt} />
