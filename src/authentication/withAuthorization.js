@@ -8,9 +8,14 @@ const withAuthorization = authCondition => Component => {
   class WithAuthorization extends React.Component {
     componentDidMount() {
       firebase.auth.onAuthStateChanged(authUser => {
-        if (!authCondition(authUser)) {
-          //if the authorization fails, redirects to sign in page
-          this.props.history.push("/signIn");
+        if (!authCondition(authUser,this.props.location)) {
+          
+          if(authUser && this.props.location.pathname == '/updateCandidate'){
+            this.props.history.push('/');
+          }
+          else{
+            this.props.history.push("/signIn");
+          }
         }
       });
     }

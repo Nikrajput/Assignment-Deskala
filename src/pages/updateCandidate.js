@@ -373,6 +373,9 @@ const UpdateCandidate = (props) => {
   );
 };
 
-const authCondition = (authUser) => authUser;
+const authCondition = (authUser,data) => {
+  if(authUser && data.candidateInfo) return true;
+  return false;
+};
 
 export default withAuthorization(authCondition)(UpdateCandidate);
