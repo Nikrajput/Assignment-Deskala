@@ -27,9 +27,6 @@ export const doUpdateCandidate = (id,data) =>{
       name:data.name,
       emailAddress:data.address,
       dateOfBirth:data.dateOfBirth,
-      state:data.state,
-      age:data.age,
-      pincode:data.pincode,
       status:data.status
   });
 }

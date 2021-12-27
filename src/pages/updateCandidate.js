@@ -254,7 +254,7 @@ const UpdateCandidate = (props) => {
       setErrorMessage("Email address is already in use for another candidate");
       return;
     }
-    db.doUpdateCandidate(candidateId,{name,address,dateOfBirth,status,pincode:candidateInfo.pincode,age:candidateInfo.age,state:candidateInfo.state});
+    db.doUpdateCandidate(candidateId,{name,address,dateOfBirth,status});
     history.push('/');
   };
 
@@ -328,7 +328,7 @@ const UpdateCandidate = (props) => {
                 </Col>
                 <Col sm={6}>
                   <FormGroup>
-                    <Label for="state">State</Label>
+                    <Label for="state">Result</Label>
                     <Dropdown isOpen={dropdown} toggle={(e) =>{setDropdown(!dropdown)}} >
                       <DropdownToggle caret style={{backgroundColor:"white",color:"black"}}>
                         {status}
