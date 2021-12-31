@@ -1,19 +1,17 @@
 import firebase from "firebase/compat/app";
 import { initializeApp } from "firebase/app";
-import {
-  getAuth
-} from "firebase/auth";
+import {getAuth} from "firebase/auth";
 import { getDatabase } from "firebase/database";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB7CgzkHmXyyXXbcRZL0T7I5GNgIaW6fTM",
-  authDomain: "assignment-deskala.firebaseapp.com",
-  databaseURL: "https://assignment-deskala-default-rtdb.firebaseio.com",
-  projectId: "assignment-deskala",
-  storageBucket: "assignment-deskala.appspot.com",
-  messagingSenderId: "53915591138",
-  appId: "1:53915591138:web:d66385bd485185fcb0d9bb"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID
 };
 if (!firebase.apps.length) {
   //initializing with the config object
